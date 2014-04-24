@@ -1,0 +1,48 @@
+
+svg
+{
+	border: 1px solid black;
+}
+
+.spgraph
+{
+	margin: 50px;
+}
+
+.link
+{
+	stroke: #000000;
+	stroke-width: 1px;
+	opacity:0.05;
+}
+
+.bold
+{
+	stroke: #FF0000;
+	stroke-width: 5px;
+	opacity:1.0;
+}
+
+.label
+{
+	fill: #FFF;
+	stroke: #FFF;
+}
+
+.node
+{
+	fill: #3E4552;
+	stroke: #3E4552;
+	opacity:0.3;
+}
+
+table.input
+{
+	margin: 20px 50px;
+}
+
+table.input td
+{
+	width: 60px;
+	text-align: center;
+}

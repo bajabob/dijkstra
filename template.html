@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<head>
+	<meta charset="utf-8">
+	<title>Dijkstra's Shortest Path</title>
+</head>
+<body>
+	<h1>Dijkstra's Shortest Path</h1>
+	<h3>Generated Graph Input (C++): Robert Timm</h3>
+	<h3>Graphical Library (D3/Javascript): <a href="https://github.com/julianbrowne/dijkstra">Julian Browne</a></h3>
+
+	<div class="spgraph" id="graph"></div>
+	<p>
+		Number of nodes : <input type="text" id="numberOfNodes" style="width: 30px;" name="sp-nodes" value="5"/>
+		<input type="submit" value=" make table " 
+			onclick="ShortestPathUtils.makeTable(document.getElementById('numberOfNodes').value);" />
+	</p>
+
+	<div id="distances"></div>
+	<div id="results"></div>
+	<div id="graph" class="spgraph" ></div>
+
+	<div id="distances2"></div>
+	<div id="results2"></div>
+	<div id="graph2" class="spgraph" ></div>
+
+
+	@STYLE@
+	
+	<script type="text/javascript" src="javascripts/d3.v3.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/ShortestPathCalculator.js"></script>
+	<script type="text/javascript" src="javascripts/ShortestPathUtils.js"></script>
+	<script type="text/javascript">
+
+		$( document ).ready(function() {
+			var is_complete = 0;
+			var nodes = new Array();
+			var paths = new Array();
+			
+			var on_complete = (function(){
+				if(is_complete < 2)
+					return;
+				console.log("done reading files");
+				var sp1 = new ShortestPathCalculator(nodes, paths);
+
+				@ROUTE@
+
+				var result = sp1.formatResult();
+
+				document.getElementById('results').innerHTML = result;
+
+				sp1.drawGraph('graph');
+			});
+			
+	    	$.get('nodes.txt', function(data){
+	    		arr = data.split('\n');
+	    		arr.forEach(function(element, index, array){
+	    			nodes.push(JSON.parse(element));
+	    		});
+	    		is_complete++;
+	    		on_complete();
+	        });
+	    	$.get('paths.txt', function(data){
+	    		arr = data.split('\n');
+	    		arr.forEach(function(element, index, array){
+	    			paths.push(JSON.parse(element));
+	    		});
+	    		is_complete++;
+	    		on_complete();
+	        });
+	    	
+		});
+	
+
+		
+	</script>
+</body>
+</html>
